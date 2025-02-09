@@ -1,33 +1,62 @@
+var amigos = []; 
 function adicionarAmigo() {
     var nomeAmigo = document.getElementById("amigo").value;
-    if (nomeAmigo.trim() !== "") { 
-        var listaAmigos = document.getElementById("listaAmigos");
+    if (nomeAmigo.trim() === "") {
+        
+        alert("Por favor, insira um nome.");
+        return;
+    }
+    if (!/^[a-zA-Z\s]+$/.test(nomeAmigo)) {
+        alert("Por favor, insira apenas letras.");
+        return;
+    }
+    for (var i = 0; i < amigos.length; i++) {
+        if (amigos[i].toLowerCase() === nomeAmigo.toLowerCase()) {
+            alert("Este nome já foi adicionado.");
+            return;
+        }
+    }
+    amigos.push(nomeAmigo); 
+    document.getElementById("amigo").value = ""; 
+    exibirAmigos(); 
+}
+function exibirAmigos() {
+    var listaAmigos = document.getElementById("listaAmigos");
+    listaAmigos.innerHTML = ""; 
+    for (var i = 0; i < amigos.length; i++) {
         var novoItem = document.createElement("li");
-        novoItem.textContent = nomeAmigo;
+        novoItem.textContent = amigos[i];
         listaAmigos.appendChild(novoItem);
-        document.getElementById("amigo").value = ""; 
-    } else {
-        alert("Por favor, digite um nome válido."); 
     }
 }
 function sortearAmigo() {
-    var listaAmigos = document.getElementById("listaAmigos");
+    if (amigos.length < 2) {
+      alert("Adicione pelo menos dois nomes para realizar o sorteio.");
+      return;
+    }
+    var amigosEmbaralhados = [...amigos]; 
+    for (let i = amigosEmbaralhados.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [amigosEmbaralhados[i], amigosEmbaralhados[j]] = [amigosEmbaralhados[j], amigosEmbaralhados[i]];
+    }
     var resultado = document.getElementById("resultado");
-    var nomes = Array.from(listaAmigos.children).map(li => li.textContent); 
+    resultado.innerHTML = "";
+    for (let i = 0; i < amigos.length; i++) {
+      var amigo = amigos[i];
+      var amigoSecreto = amigosEmbaralhados[i];
+  
+      var resultadoItem = document.createElement("li");
+      resultadoItem.textContent = amigo + " tirou: " + amigoSecreto;
+      resultado.appendChild(resultadoItem);
+    }
+  }
 
-    if (nomes.length < 2) {
-        alert("É necessário pelo menos dois amigos para o sorteio."); 
-        return;
-    }
-    for (let i = nomes.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        [nomes[i], nomes[j]] = [nomes[j], nomes[i]];
-    }
-    resultado.innerHTML = ""; 
-    for (let i = 0; i < nomes.length; i++) {
-        var itemResultado = document.createElement("li");
-        var amigoSecreto = (i + 1) % nomes.length; 
-        itemResultado.textContent = `${nomes[i]} tirou ${nomes[amigoSecreto]}`;
-        resultado.appendChild(itemResultado);
-    }
-}
+
+
+
+
+
+
+
+
+
