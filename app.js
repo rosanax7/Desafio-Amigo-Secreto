@@ -6,7 +6,8 @@ function adicionarAmigo() {
         alert("Por favor, insira um nome.");
         return;
     }
-    if (!/^[a-zA-Z\s]+$/.test(nomeAmigo)) {
+    if (!/^[a-zA-Z\u00C0-\u017F\s]+$/.test(nomeAmigo)) {
+    // if (!/^[a-zA-Z\s]+$/.test(nomeAmigo)) 
         alert("Por favor, insira apenas letras.");
         return;
     }
@@ -36,15 +37,17 @@ function sortearAmigo() {
     }
     var amigosEmbaralhados = [...amigos]; 
     for (let i = amigosEmbaralhados.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [amigosEmbaralhados[i], amigosEmbaralhados[j]] = [amigosEmbaralhados[j], amigosEmbaralhados[i]];
+        let j = Math.floor(Math.random() * (i + 1));
+        while (j === i) {
+        j = Math.floor(Math.random() * (i + 1));
+        }
+        [amigosEmbaralhados[i], amigosEmbaralhados[j]] = [amigosEmbaralhados[j], amigosEmbaralhados[i]];
     }
     var resultado = document.getElementById("resultado");
     resultado.innerHTML = "";
     for (let i = 0; i < amigos.length; i++) {
       var amigo = amigos[i];
       var amigoSecreto = amigosEmbaralhados[i];
-  
       var resultadoItem = document.createElement("li");
       resultadoItem.textContent = amigo + " tirou: " + amigoSecreto;
       resultado.appendChild(resultadoItem);
