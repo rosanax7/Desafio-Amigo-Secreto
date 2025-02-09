@@ -7,7 +7,6 @@ function adicionarAmigo() {
         return;
     }
     if (!/^[a-zA-Z\u00C0-\u017F\s]+$/.test(nomeAmigo)) {
-    // if (!/^[a-zA-Z\s]+$/.test(nomeAmigo)) 
         alert("Por favor, insira apenas letras.");
         return;
     }
