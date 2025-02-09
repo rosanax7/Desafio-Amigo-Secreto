@@ -1,0 +1,1 @@
+Este projeto implementa um jogo da Amigo Secreto interativo, onde os usuários podem inserir seus nomes e o sistema realiza o sorteio aleatório dos pares. O objetivo principal é proporcionar uma ferramenta simples e divertida para organizar o sorteio de amigo secreto entre amigos, familiares ou colegas de trabalho.
